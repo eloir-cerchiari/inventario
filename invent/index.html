@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<meta charset="utf-8"> 
+		<title>Aprenda AngularJS - Menu de Navegação</title>
+
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
+		<!-- Arquivo CSS principal -->
+		<link rel="stylesheet" type="text/css" href="style.css">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+		<script src="app.js"></script>
+
+	</head>
+
+	<!-- A diretiva ng-app diz ao Angular que o código abaixo deve ser analisado -->
+
+	<body ng-app="dragModule" ng-controller="PartsLayoutController">
+
+		<div  id="img_background" ng-style="{'background-image': 'url('+project.img+')', 'background-repeat':'no-repeat' }">
+			<div my-draggable ng-repeat="part in parts" class="object_part" ng-style="{left: part.x, top:part.y, 'background-color':part.color}" >
+				{{ part.name }}<br />
+				{{ part.serial }}
+			</div>
+
+
+		</div>
+
+
+		
+
+		</div>
+
+		<!-- Incluindo o AngularJS do Google CDN -->
+
+	</body>
+
+</html>
