@@ -9,11 +9,11 @@
 
         <!-- Bootstrap 
         <link href="css/bootstrap.min.css" rel="stylesheet">
--->
-        
-    <!-- Custom styles for this template -->
-    <link href="css/default.css" rel="stylesheet">
-    
+        -->
+
+        <!-- Custom styles for this template -->
+        <link href="css/default.css" rel="stylesheet">
+
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -47,7 +47,9 @@
 
         <div class="container">
 
-            <div class="col-sm-3 col-md-3">
+
+            <!-- Área de seleção de Áreas -->
+            <div class="col-sm-6 col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Área</h3>
@@ -55,46 +57,86 @@
                     <div class="panel-body">teste 1</div>
                 </div>
             </div>
-            <div class="col-sm-2 col-md-2">
+            <!-- Fim da Área de seleção de Áreas -->
+
+
+            <!-- Área de seleção de Equipamentos -->
+
+            <div class="col-sm-6 col-md-2">
                 <div class="panel panel-default panel-info">
                     <div class="panel-heading">
                         <h3 class="panel-title">Equipamento</h3>
-                        
                     </div>
-                    <input alt="Filtro" placeholder="Filtro" class="form-control" id="equipamentos"  />
-                    <div class="panel-body">teste 1</div>
+                    <div class="panel-body">
+
+                        <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-equipamentos"  />
+                        teste 1
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-7 col-md-7">
+
+            <!-- Fim da Área de seleção de Equipamentos -->
+
+            <!-- Área do Histórico de Ocorrências -->
+
+            <div class="col-sm-12 col-md-7">
                 <div class="panel panel-warning">
-                    
+
                     <div class="panel-heading">
                         <h3 class="panel-title">Histórico</h3>
                     </div>
-                    
-                    <div class="col-sm-3 col-md-3">
-                        <input alt="Filtro" placeholder="Filtro" class="form-control" id="equipamentos"  />
+
+
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-sm-3 col-md-3">
+                                <input alt="Filtro por Data" placeholder="Filtro por Data" class="form-control" id="filtro-ocorrencias-data"  />
+                            </div>
+
+                            <div class="col-sm-5 col-md-5">
+                                <div class="input-group">
+
+                                    <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-ocorrencias-data"  />
+
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden=true" /></button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4 col-md-4">
+                                <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign" /> Nova Ocorrência</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 panel panel-default">
+                                <table class="table table-stripped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Usuário</th>
+                                            <th>Ocorrência</th>
+                                            <th>Tipo</th>
+                                            <th>Tempo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="col-sm-4 col-md-4">
-                        <input alt="Filtro" placeholder="Filtro" class="form-control" id="equipamentos"  />
-                    </div>
-                    
-                    <div class="col-sm-1 col-md-1">
-                        
-                        <button type="button" class="btn btn-default btn-lg"></button>
-                    </div>
-                    
-                    <div class="col-sm-2 col-md-2">
-                        
-                        <button type="button" class="btn btn-default btn-lg"></button>
-                    </div>
-                    
-                    
-                    <div class="panel-body">teste 1</div>
-                    
+
                 </div>
             </div>
+
+            <!-- Fim da  Área do Histórico de Ocorrências -->
+
         </div><!-- /.container -->
 
 
@@ -113,7 +155,7 @@
         -->
 
 
-        
+
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -122,7 +164,7 @@
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        
+
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="js/ie10-viewport-bug-workaround.js"></script>
 
