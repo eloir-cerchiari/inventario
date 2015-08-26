@@ -9,9 +9,45 @@ and open the template in the editor.
 */
 
 body {
-  padding-top: 60px;
+    padding-top: 60px;
 }
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
+    padding: 40px 15px;
+    text-align: center;
+}
+
+
+/*
+bootstrap hacks
+*/
+/*
+não funcionou
+.margin-bottom-xs {margin-bottom: ceil(@line-height-computed / 4);}  
+.margin-bottom-sm {margin-bottom: ceil(@line-height-computed / 2);} 
+.margin-bottom-md {margin-bottom: @line-height-computed;}
+.margin-bottom-lg {margin-bottom: ceil(@line-height-computed * 2);}  
+*/
+.margin-bottom-05 {
+    margin-bottom: 5px;
+    margin-bottom: 0.5rem; 
+}
+.margin-bottom-10 {
+    margin-bottom: 10px;
+    margin-bottom: 1.0rem;
+}
+.margin-bottom-15 {
+    margin-bottom: 15px;
+    margin-bottom: 1.5rem;
+}
+.margin-bottom-20 {
+    margin-bottom: 20px;
+    margin-bottom: 2.0rem;
+}
+.margin-bottom-25 {
+    margin-bottom: 25px;
+    margin-bottom: 2.5rem;
+}
+.margin-bottom-30 {
+    margin-bottom: 30px;
+    margin-bottom: 3.0rem;
 }

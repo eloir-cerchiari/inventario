@@ -86,9 +86,10 @@
                         <h3 class="panel-title">Histórico</h3>
                     </div>
 
-
                     <div class="panel-body">
-                        <div class="row">
+
+                        <!-- Histórico Buttons -->
+                        <div class="row margin-bottom-15">
 
                             <div class="col-sm-3 col-md-3">
                                 <input alt="Filtro por Data" placeholder="Filtro por Data" class="form-control" id="filtro-ocorrencias-data"  />
@@ -110,8 +111,13 @@
                                 <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign" /> Nova Ocorrência</button>
                             </div>
                         </div>
+
+                        <!-- Fim do Histórico Buttons -->
+
+
                         <div class="row">
-                            <div class="col-sm-12 col-md-12 panel panel-default">
+                            
+                            <div class="col-sm-12 col-md-12 ">
                                 <table class="table table-stripped table-bordered">
                                     <thead>
                                         <tr>
@@ -124,12 +130,18 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+                            
                         </div>
+
                     </div>
 
                 </div>
