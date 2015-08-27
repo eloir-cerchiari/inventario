@@ -14,13 +14,17 @@ namespace Controller;
  * @author eloir
  */
 class IndexController extends Controller{
-    
+
     public function __construct() {
         parent::__construct();
     }
 
     public function index(){
         return $this->renderHtml('ocorrencias.php');
-        
     }
+    
+    public function cadastros(){
+        return $this->renderHtml('cadastros.php');
+    }
+    
 }
