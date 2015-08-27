@@ -69,8 +69,24 @@
                     </div>
                     <div class="panel-body">
 
-                        <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-equipamentos"  />
-                        teste 1
+                        <div class="row margin-bottom-15">
+                            <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-equipamentos"  />
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-12 ">
+                                <div class="list-group">
+                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
+                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
+                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
+                                    <a href="#" class="list-group-item">A-JCH-M2345c</a>
+                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -116,7 +132,7 @@
 
 
                         <div class="row">
-                            
+
                             <div class="col-sm-12 col-md-12 ">
                                 <table class="table table-stripped table-bordered">
                                     <thead>
@@ -139,7 +155,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                         </div>
 
                     </div>

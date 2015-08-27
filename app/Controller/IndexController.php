@@ -20,7 +20,7 @@ class IndexController extends Controller{
     }
 
     public function index(){
-        return $this->renderHtml('template.php');
+        return $this->renderHtml('ocorrencias.php');
         
     }
 }
