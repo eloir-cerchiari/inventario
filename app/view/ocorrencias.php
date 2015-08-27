@@ -50,7 +50,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
-                                <div class="col-sm-4 col-md-4"> <button type="button" class="btn btn-default active btn-block">A</button></div>
+                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default active btn-block">A</button></div>
                                 <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">B</button></div>
                                 <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">C</button></div>
                                 <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">D</button></div>
