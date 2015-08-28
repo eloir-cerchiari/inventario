@@ -57,7 +57,7 @@
                         
                         
                         <div class="panel-heading">
-                            <h3 class="panel-title">Equipamento</h3>
+                            <h3 class="panel-title">Áreas</h3>
                         </div>
                         
                         
@@ -74,11 +74,11 @@
 
                                 <div class="col-sm-12 col-md-12 ">
                                     <div class="list-group">
-                                        <a href="#" class="list-group-item">A-JCH-M2345</a>
-                                        <a href="#" class="list-group-item">A-JCH-M2345</a>
-                                        <a href="#" class="list-group-item">A-JCH-M2345</a>
-                                        <a href="#" class="list-group-item">A-JCH-M2345c</a>
-                                        <a href="#" class="list-group-item">A-JCH-M2345</a>
+                                        <a href="#" class="list-group-item">A</a>
+                                        <a href="#" class="list-group-item">B</a>
+                                        <a href="#" class="list-group-item">C</a>
+                                        <a href="#" class="list-group-item">D</a>
+                                        <a href="#" class="list-group-item">E</a>
                                     </div>
                                 </div>
                             </div>
