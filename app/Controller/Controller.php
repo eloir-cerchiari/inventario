@@ -38,7 +38,9 @@ class Controller {
         $this->app->response->headers->set('Content-Type', 'application/json');
         $this->app->contentType('application/json;  charset=utf-8');
 
-        $this->app->response->setBody(json_encode($fractal->createData($resource)->toArray(), JSON_UNESCAPED_SLASHES));
+        $fractalArray = $fractal->createData($resource)->toArray();
+
+        $this->app->response->setBody(json_encode($fractalArray, JSON_UNESCAPED_SLASHES));
     }
 
     protected function renderHtml($htmlFile, $data = [], $status = 200) {
@@ -47,7 +49,15 @@ class Controller {
 
     protected function error($message, $status = 404) {
         $this->app->response()->setStatus($status);
-        $this->app->response->setBody('{"error":{"text":' . $message . '}}');
+        $this->app->response->setBody(
+                json_encode(
+                        array('error' => array(
+                                'message' => $message,
+                                'status_code' => $status
+                            )
+                        )
+                )
+        );
     }
 
 }

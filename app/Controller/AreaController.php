@@ -48,4 +48,91 @@ class AreaController extends \Controller\Controller {
         }
     }
 
+    /**
+     * 
+     * @param \Entity\Area $area
+     */
+    private function validateArea($area) {
+
+        if (get_class($area) != 'Entity\Area') {
+            throw new \Exception('Área inválida');
+        }
+
+        if (strlen($area->getName()) < 1) {
+            throw new \Exception('Tamanho mínimo é 1 caracter');
+        }
+
+        if (strlen($area->getName()) > 50) {
+            throw new \Exception('Tamanho máximo é 50 caracteres');
+        }
+
+        return true;
+    }
+
+    public function postAreaAction() {
+
+        try {
+
+            $app = \Slim\Slim::getInstance();
+            $data = $app->request->getBody();
+
+            $areaPost = json_decode($data);
+
+            $area = new \Entity\Area();
+            $area->setName($areaPost->name);
+
+            $this->validateArea($area);
+
+            $areaRep = new \Repository\AreaRepository();
+
+            $areaRep->insert($area);
+
+
+            $returnAreas = $areaRep->finByName($area->getName());
+
+            if (count($returnAreas) > 1) {
+                throw new Exception('Many areas');
+            }
+
+            $resource = new \League\Fractal\Resource\Item($returnAreas[0], new \Transformer\AreaTransformer());
+
+            return $this->writeJson($resource, 200);
+        } catch (\Exception $exc) {
+
+            return $this->error($exc->getMessage());
+        }
+    }
+
+    public function putAreaAction($id) {
+
+        try {
+
+            $app = \Slim\Slim::getInstance();
+            $app->add(new \Slim\Middleware\ContentTypes());
+            $data = $app->request()->getBody();
+
+            $areaPut = json_decode($data);
+
+            $areaRep = new \Repository\AreaRepository();
+            $area = $areaRep->getArea($id);
+
+            $area->setName($areaPut->name);
+
+            $this->validateArea($area);
+            if($areaRep->exists($area)){
+                throw new \Exception('Área já cadastrada');
+            }
+
+            $areaRep->update($area);
+
+            $resource = new \League\Fractal\Resource\Item($area, new \Transformer\AreaTransformer());
+
+            return $this->writeJson($resource, 200);
+            
+        } catch (\Exception $exc) {
+
+            return $this->error($exc->getMessage());
+        }
+    }
+
 }

@@ -29,7 +29,7 @@ class AreaRepository extends Repository {
 
         $sql = 'SELECT * FROM area WHERE idarea = :id';
         $stmt = $this->db->getConnection()->prepare($sql);
-          $stmt->bindParam('id', $idArea);
+        $stmt->bindParam('id', $idArea);
         $stmt->execute();
 
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -46,9 +46,9 @@ class AreaRepository extends Repository {
     public function finByName($name) {
 
         $sql = 'SELECT * FROM area WHERE name = :name';
-        
+
         $stmt = $this->db->getConnection()->prepare($sql);
-        
+
         $stmt->bindParam('name', $name);
         $stmt->execute();
 
@@ -83,8 +83,56 @@ class AreaRepository extends Repository {
      * @return boolean
      */
     public function exists($area) {
+
         $areas = $this->finByName($area->getName());
-        return (count($areas) > 0);
+
+        if (count($areas) > 0) {
+
+            foreach ($areas as $areaI) {
+
+                if ($areaI->getAreaId() != $area->getAreaId()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * 
+     * @param \Entity\Area $area
+     * @return boolean
+     */
+    public function insert($area) {
+
+        if ($this->exists($area)) {
+            throw new Exception('Área já existe.');
+        }
+
+        $sql = 'INSERT INTO area (name) values (:name); ';
+
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        $stmt->bindParam('name', $area->getName());
+
+
+        return $stmt->execute();
+    }
+
+    /**
+     * 
+     * @param \Entity\Area $area
+     */
+    public function update($area) {
+
+        $sql = 'UPDATE area SET name=:name WHERE idarea=:id';
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        $stmt->bindParam('name', $area->getName());
+        $stmt->bindParam('id', $area->getAreaId());
+
+        return $stmt->execute();
     }
 
 }

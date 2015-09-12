@@ -6,8 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Inventário de Ocorrências</title>
-        
+
         <script src="js/angular-1.4.4/angular.js"></script>
+        <script src="js/angular-1.4.4/angular-messages.js"></script>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -51,55 +52,111 @@
             <div class="tab-pane row">
                 <!-- Área de Cadastro de Áreas -->
 
-                <div class="col-sm-6 col-md-6">
-                    
-                    
-                    <div class="panel panel-default panel-info" ng-app="areaRegister" ng-controller="areaRegisterCtrl">
-                        
-                        
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Áreas</h3>
-                        </div>
-                        
-                        
-                        <div class="panel-body">
-<!-- filtro de equipamentos -->
-                            <div class="row margin-bottom-15">
-                                <div class="col-sm-12 col-md-12">
-                                    <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-equipamentos"  />
-                                </div>
+                <div class="col-sm-10 col-md-10"  ng-app="areaRegister" ng-controller="areaRegisterCtrl">
+
+
+                    <!-- panel de listagem de áreas -->
+                    <div class="col-sm-5 col-md-5" ng-hide="selectedAreaEdit.editando">
+                        <div class="panel panel-default panel-info">
+
+
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Áreas</h3>
                             </div>
 
-
-                            <div class="row">
-
-                                <div class="col-sm-12 col-md-12 ">
-                                    <div class="list-group">
-                                        <a href="#" class="list-group-item" ng-repeat="area in areas">{{area.name}}</a>
-                                        
+                            <div class="panel-body">
+                                <!-- filtro de equipamentos -->
+                                <div class="row margin-bottom-15">
+                                    <div class="col-sm-12 col-md-12">
+                                        <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-equipamentos"  />
                                     </div>
                                 </div>
+                                <!-- fim do filtro de equipamentos -->
+
+                                <!-- Listagem de Áreas -->
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-md-12 ">
+
+                                        <div class="list-group">
+
+                                            <a href="#" 
+                                               class="list-group-item" 
+                                               ng-repeat="area in areas" 
+                                               ng-class="{active: area == selectedArea}" 
+                                               ng-click="setSelected(area)">
+
+                                                {{area.name}}
+
+                                            </a>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="button" 
+                                                   class="btn btn-info form-control" 
+                                                   value="Alterar" 
+                                                   ng-click="editButtonClick()" 
+                                                   ng-disabled="selectedAreaEdit.editando" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- fim da Listagem de Áreas -->
+
                             </div>
-<!-- fim do filtro de equipamentos -->
+                        </div>
+                    </div>
+
+                    <!-- fim do panel de listagem de áreas -->
+
+
+                    <div class="col-sm-5 col-md-5 " ng-show="selectedAreaEdit.editando">
+                        <div class="panel panel-default panel-warning" >
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Alterando Área </h3>
+                            </div>
+                            <div class="panel-body">
+                                <h4>Área a ser alterada: {{selectedArea.name}}</h4>
+                                <div class="form-group" >
+                                    <label for="area">Área</label>
+                                    <input alt="Área" placeholder="Área" ng-model="selectedAreaEdit.area.name" class="form-control" id="area"  />
+                                </div>
+                                <div class="btn-group">
+                                    <input type="button" 
+                                           class="btn btn-danger " 
+                                           value="Cancelar" 
+                                           ng-click="editCancelButtonClick()" 
+                                           />
+
+                                    <input type="button" 
+                                           class="btn btn-default" 
+                                           value="Salvar"
+                                           ng-click="editSaveButtonClick()" 
+                                           />
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+                                
+                                <div class="alert alert-success" ng-show="selectedAreaEdit.sucess">
+                                    {{selectedAreaEdit.message}}
+                                </div>
+                                <div class="alert alert-warning" ng-show="selectedAreaEdit.fail">
+                                    {{selectedAreaEdit.message}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Fim da Área de Cadastro de Áreas -->
             </div>
 
-
-
-
+            <!-- Fim da Área de Cadastro de Áreas -->
 
         </div><!-- /.container -->
-
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         -->
-
-
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -122,7 +179,6 @@
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="js/ie10-viewport-bug-workaround.js"></script>
-
 
     </body>
 </html>

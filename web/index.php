@@ -13,6 +13,9 @@ $app->get('/', 'Controller\IndexController:index');
 $app->get('/cadastro', 'Controller\IndexController:cadastros');
 $app->get('/api/v1/areas', 'Controller\AreaController:listAreasAction');
 $app->get('/api/v1/areas/:id', 'Controller\AreaController:getAreaAction')->name('area_by_id');
+$app->post('/api/v1/areas', 'Controller\AreaController:postAreaAction')->name('post_area');
+$app->put('/api/v1/areas/:id', 'Controller\AreaController:putAreaAction')->name('put_area');
+
 /* $app->get('/api/v1/brands', 'Controller\BrandController:listBrandsAction');
  * $app->get('/api/v1/brands/:id', 'Controller\BrandController:getBrandAction')->name('brand_by_id');
  * $app->put('/api/v1/brands/:id', 'Controller\BrandController:putBrandAction')->name('brand_put_by_id');
