@@ -105,9 +105,9 @@ class AreaRepository extends Repository {
      * @return boolean
      */
     public function insert($area) {
-
         if ($this->exists($area)) {
-            throw new Exception('Área já existe.');
+           
+            throw new \Exception('Área já existe.');
         }
 
         $sql = 'INSERT INTO area (name) values (:name); ';
