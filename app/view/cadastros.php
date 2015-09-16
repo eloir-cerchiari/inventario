@@ -56,7 +56,7 @@
 
 
                     <!-- panel de listagem de áreas -->
-                    <div class="col-sm-5 col-md-5" ng-hide="selectedAreaEdit.editando">
+                    <div class="col-sm-5 col-md-5" ng-hide="selectedAreaEdit.editando || addArea.selected">
                         <div class="panel panel-default panel-info">
 
 
@@ -93,11 +93,24 @@
                                         </div>
 
                                         <div class="form-group">
+
                                             <input type="button" 
-                                                   class="btn btn-info form-control" 
+                                                   class="btn btn-info btn-group" 
                                                    value="Alterar" 
                                                    ng-click="editButtonClick()" 
                                                    ng-disabled="selectedAreaEdit.editando" />
+
+                                            <input type="button" 
+                                                   class="btn btn-info btn-group" 
+                                                   value="Adicionar" 
+                                                   ng-click="addAreaButtonClick()" 
+                                                   ng-disabled="addArea.selected" />
+                                            
+                                            <input type="button" 
+                                                   class="btn btn-info btn-group" 
+                                                   value="Remover" 
+                                                   ng-click="delAreaButtonClick()" 
+                                                   ng-disabled="delArea.selected" />
                                         </div>
 
                                     </div>
@@ -110,7 +123,7 @@
 
                     <!-- fim do panel de listagem de áreas -->
 
-
+                    <!-- edição de área -->
                     <div class="col-sm-5 col-md-5 " ng-show="selectedAreaEdit.editando">
                         <div class="panel panel-default panel-warning" >
                             <div class="panel-heading">
@@ -137,12 +150,51 @@
                                 </div>
                             </div>
                             <div class="panel-footer">
-                                
+
                                 <div class="alert alert-success" ng-show="selectedAreaEdit.sucess">
                                     {{selectedAreaEdit.message}}
                                 </div>
                                 <div class="alert alert-warning" ng-show="selectedAreaEdit.fail">
                                     {{selectedAreaEdit.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- fim da edição de áreas -->
+
+                    <!-- cadastrando área -->
+                    <div class="col-sm-5 col-md-5 " ng-show="addArea.selected">
+                        <div class="panel panel-default panel-warning" >
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Nova Área </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group" >
+                                    <label for="area">Área</label>
+                                    <input alt="Área" placeholder="Área" ng-model="addArea.area.name" class="form-control" id="area"  />
+                                </div>
+                                <div class="btn-group">
+                                    <input type="button" 
+                                           class="btn btn-danger " 
+                                           value="Cancelar" 
+                                           ng-click="addAreaCancelButtonClick()" 
+                                           />
+
+                                    <input type="button" 
+                                           class="btn btn-default" 
+                                           value="Salvar"
+                                           ng-click="addAreaSaveButtonClick()" 
+                                           />
+                                </div>
+                            </div>
+                            <div class="panel-footer">
+
+                                <div class="alert alert-success" ng-show="addArea.sucess">
+                                    {{addArea.message}}
+                                </div>
+                                <div class="alert alert-warning" ng-show="addArea.fail">
+                                    {{addArea.message}}
                                 </div>
                             </div>
                         </div>

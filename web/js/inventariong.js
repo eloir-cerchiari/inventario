@@ -5,6 +5,7 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
     $scope.app = "Area Register";
     $scope.selectedArea = {};
     $scope.selectedAreaEdit = {editando: false, area: {}, message: '', sucess: false, fail: false};
+    $scope.addArea = {selected: false, area: {}, message: '', sucess: false, fail: false};
 
 
     $scope.loadAreas = function (){
@@ -53,6 +54,36 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
         }, function (response) {
             $scope.selectedAreaEdit.message = response.data.error.message;
             $scope.selectedAreaEdit.fail = true;
+            $scope.loadAreas();
+        });
+    }
+    
+    
+    $scope.addAreaButtonClick = function () {
+        if ($scope.addArea.selected == false) {
+            $scope.addArea.selected = true;
+        }
+    }
+
+    $scope.addAreaCancelButtonClick = function () {
+        if ($scope.addArea.selected == true) {
+            $scope.addArea.area = {};
+            $scope.addArea.selected = false;
+        }
+    }
+
+    $scope.addAreaSaveButtonClick = function () {
+        $scope.addArea.fail = false;
+        $scope.addArea.sucess = false;
+        $http.post('api/v1/areas',  $scope.addArea.area).then(function (response) {
+            $scope.message = response.status;
+
+            $scope.addArea.sucess = true;
+            $scope.addArea.message = 'Nova área adicionada com Sucesso!';
+            $scope.loadAreas();
+        }, function (response) {
+            $scope.addArea.message = response.data.error.message;
+            $scope.addArea.fail = true;
             $scope.loadAreas();
         });
     }
