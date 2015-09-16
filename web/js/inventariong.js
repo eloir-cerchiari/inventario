@@ -4,11 +4,41 @@ angular.module("areaRegister", []);
 angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, $http) {
     $scope.app = "Area Register";
     $scope.selectedArea = {};
-    $scope.selectedAreaEdit = {editando: false, area: {}, message: '', sucess: false, fail: false};
-    $scope.addArea = {selected: false, area: {}, message: '', sucess: false, fail: false};
+    $scope.formEditArea = {
+        editando: false,
+        area: {},
+        message: '',
+        sucess: false,
+        fail: false,
+        waiting: false,
+        reset: function(){
+            this.editando = false;
+            this.area = {};
+            this.message = '';
+            this.sucess = false;
+            this.fail = false;
+            whit.waiting = false;
+        }
+    };
+    $scope.formAddArea = {
+        selected: false,
+        area: {},
+        message: '',
+        sucess: false,
+        fail: false,
+        waiting: false,
+        reset: function(){
+            this.editando = false;
+            this.area = {};
+            this.message = '';
+            this.sucess = false;
+            this.fail = false;
+            this.waiting = false;
+        }
+    };
 
 
-    $scope.loadAreas = function (){
+    $scope.loadAreas = function () {
         $http.get('api/v1/areas').then(function (response) {
             $scope.areas = response.data.data;
 
@@ -22,68 +52,70 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
 
 
     $scope.setSelected = function (area) {
-        if ($scope.selectedAreaEdit.editando == false) {
+        if ($scope.formEditArea.editando == false) {
             $scope.selectedArea = area;
 
         }
     }
 
     $scope.editButtonClick = function () {
-        if ($scope.selectedAreaEdit.editando == false) {
-            angular.copy($scope.selectedArea, $scope.selectedAreaEdit.area);
-            $scope.selectedAreaEdit.editando = true;
+        if ($scope.formEditArea.editando == false) {
+            angular.copy($scope.selectedArea, $scope.formEditArea.area);
+            $scope.formEditArea.editando = true;
         }
     }
 
     $scope.editCancelButtonClick = function () {
-        if ($scope.selectedAreaEdit.editando == true) {
-            $scope.selectedAreaEdit.area = {};
-            $scope.selectedAreaEdit.editando = false;
+        if ($scope.formEditArea.editando == true) {
+            $scope.formEditArea.reset();
         }
     }
 
     $scope.editSaveButtonClick = function () {
-        $scope.selectedAreaEdit.fail = false;
-        $scope.selectedAreaEdit.sucess = false;
-        $http.put('api/v1/areas/' + $scope.selectedAreaEdit.area.id, $scope.selectedAreaEdit.area).then(function (response) {
-            $scope.message = response.status;
+        $scope.formEditArea.fail = false;
+        $scope.formEditArea.sucess = false;
+        $http.put(
+                'api/v1/areas/' + $scope.formEditArea.area.id,
+                $scope.formEditArea.area
+                )
+                .then(function (response) {
+                    $scope.message = response.status;
 
-            $scope.selectedAreaEdit.sucess = true;
-            $scope.selectedAreaEdit.message = 'Área alterada com Sucesso!';
-            $scope.loadAreas();
-        }, function (response) {
-            $scope.selectedAreaEdit.message = response.data.error.message;
-            $scope.selectedAreaEdit.fail = true;
-            $scope.loadAreas();
-        });
+                    $scope.formEditArea.sucess = true;
+                    $scope.formEditArea.message = 'Área alterada com Sucesso!';
+                    $scope.loadAreas();
+                }, function (response) {
+                    $scope.formEditArea.message = response.data.error.message;
+                    $scope.formEditArea.fail = true;
+                    $scope.loadAreas();
+                });
     }
-    
-    
+
+
     $scope.addAreaButtonClick = function () {
-        if ($scope.addArea.selected == false) {
-            $scope.addArea.selected = true;
+        if ($scope.formAddArea.selected == false) {
+            $scope.formAddArea.selected = true;
         }
     }
 
     $scope.addAreaCancelButtonClick = function () {
-        if ($scope.addArea.selected == true) {
-            $scope.addArea.area = {};
-            $scope.addArea.selected = false;
+        if ($scope.formAddArea.selected == true) {
+            $scope.formAddArea.reset();
         }
     }
 
     $scope.addAreaSaveButtonClick = function () {
-        $scope.addArea.fail = false;
-        $scope.addArea.sucess = false;
-        $http.post('api/v1/areas',  $scope.addArea.area).then(function (response) {
+        $scope.formAddArea.fail = false;
+        $scope.formAddArea.sucess = false;
+        $http.post('api/v1/areas', $scope.formAddArea.area).then(function (response) {
             $scope.message = response.status;
 
-            $scope.addArea.sucess = true;
-            $scope.addArea.message = 'Nova área adicionada com Sucesso!';
+            $scope.formAddArea.sucess = true;
+            $scope.formAddArea.message = 'Nova área adicionada com Sucesso!';
             $scope.loadAreas();
         }, function (response) {
-            $scope.addArea.message = response.data.error.message;
-            $scope.addArea.fail = true;
+            $scope.formAddArea.message = response.data.error.message;
+            $scope.formAddArea.fail = true;
             $scope.loadAreas();
         });
     }

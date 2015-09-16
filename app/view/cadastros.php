@@ -56,7 +56,7 @@
 
 
                     <!-- panel de listagem de áreas -->
-                    <div class="col-sm-5 col-md-5" ng-hide="selectedAreaEdit.editando || addArea.selected">
+                    <div class="col-sm-5 col-md-5" ng-hide="formEditArea.editando || formAddArea.selected">
                         <div class="panel panel-default panel-info">
 
 
@@ -98,13 +98,13 @@
                                                    class="btn btn-info btn-group" 
                                                    value="Alterar" 
                                                    ng-click="editButtonClick()" 
-                                                   ng-disabled="selectedAreaEdit.editando" />
+                                                   ng-disabled="formEditArea.editando" />
 
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
                                                    value="Adicionar" 
                                                    ng-click="addAreaButtonClick()" 
-                                                   ng-disabled="addArea.selected" />
+                                                   ng-disabled="formAddArea.selected" />
                                             
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
@@ -124,7 +124,7 @@
                     <!-- fim do panel de listagem de áreas -->
 
                     <!-- edição de área -->
-                    <div class="col-sm-5 col-md-5 " ng-show="selectedAreaEdit.editando">
+                    <div class="col-sm-5 col-md-5 " ng-show="formEditArea.editando">
                         <div class="panel panel-default panel-warning" >
                             <div class="panel-heading">
                                 <h3 class="panel-title">Alterando Área </h3>
@@ -133,7 +133,7 @@
                                 <h4>Área a ser alterada: {{selectedArea.name}}</h4>
                                 <div class="form-group" >
                                     <label for="area">Área</label>
-                                    <input alt="Área" placeholder="Área" ng-model="selectedAreaEdit.area.name" class="form-control" id="area"  />
+                                    <input alt="Área" placeholder="Área" ng-model="formEditArea.area.name" class="form-control" id="area"  />
                                 </div>
                                 <div class="btn-group">
                                     <input type="button" 
@@ -151,11 +151,11 @@
                             </div>
                             <div class="panel-footer">
 
-                                <div class="alert alert-success" ng-show="selectedAreaEdit.sucess">
-                                    {{selectedAreaEdit.message}}
+                                <div class="alert alert-success" ng-show="formEditArea.sucess">
+                                    {{formEditArea.message}}
                                 </div>
-                                <div class="alert alert-warning" ng-show="selectedAreaEdit.fail">
-                                    {{selectedAreaEdit.message}}
+                                <div class="alert alert-warning" ng-show="formEditArea.fail">
+                                    {{formEditArea.message}}
                                 </div>
                             </div>
                         </div>
@@ -164,7 +164,7 @@
                     <!-- fim da edição de áreas -->
 
                     <!-- cadastrando área -->
-                    <div class="col-sm-5 col-md-5 " ng-show="addArea.selected">
+                    <div class="col-sm-5 col-md-5 " ng-show="formAddArea.selected">
                         <div class="panel panel-default panel-warning" >
                             <div class="panel-heading">
                                 <h3 class="panel-title">Nova Área </h3>
@@ -172,7 +172,7 @@
                             <div class="panel-body">
                                 <div class="form-group" >
                                     <label for="area">Área</label>
-                                    <input alt="Área" placeholder="Área" ng-model="addArea.area.name" class="form-control" id="area"  />
+                                    <input alt="Área" placeholder="Área" ng-model="formAddArea.area.name" class="form-control" id="area"  />
                                 </div>
                                 <div class="btn-group">
                                     <input type="button" 
@@ -190,11 +190,11 @@
                             </div>
                             <div class="panel-footer">
 
-                                <div class="alert alert-success" ng-show="addArea.sucess">
-                                    {{addArea.message}}
+                                <div class="alert alert-success" ng-show="formAddArea.sucess">
+                                    {{formAddArea.message}}
                                 </div>
-                                <div class="alert alert-warning" ng-show="addArea.fail">
-                                    {{addArea.message}}
+                                <div class="alert alert-warning" ng-show="formAddArea.fail">
+                                    {{formAddArea.message}}
                                 </div>
                             </div>
                         </div>
