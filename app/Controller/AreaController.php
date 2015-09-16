@@ -98,7 +98,7 @@ class AreaController extends \Controller\Controller {
 
             return $this->writeJson($resource, 200);
         } catch (\Exception $exc) {
-
+            
             return $this->error($exc->getMessage());
         }
     }
