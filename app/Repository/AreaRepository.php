@@ -18,13 +18,18 @@ class AreaRepository extends Repository {
      * @return \Entity\Area
      */
     public function listAreas() {
-        $sql = 'SELECT * FROM area';
+        $sql = 'SELECT * FROM area order by name';
         $stmt = $this->db->getConnection()->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $this->areaFactory($result);
     }
 
+    /**
+     * 
+     * @param int $idArea
+     * @return \Entity\Area
+     */
     public function getArea($idArea) {
 
         $sql = 'SELECT * FROM area WHERE idarea = :id';
@@ -133,6 +138,38 @@ class AreaRepository extends Repository {
         $stmt->bindParam('id', $area->getAreaId());
 
         return $stmt->execute();
+    }
+    
+    /**
+     * 
+     * @param \Entity\Area $area
+     */
+    public function delete($area) {
+
+        $sql = 'delete from  area  WHERE idarea=:id';
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        $stmt->bindParam('id', $area->getAreaId());
+
+        return $stmt->execute();
+    }
+    
+    /**
+     * 
+     * @param String $pattern
+     */
+    public function findByPattern($pattern){
+        
+        $sql = 'SELECT * FROM area WHERE name like :name';
+
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        $stmt->bindParam('name', '%'.$name.'%');
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $this->areaFactory($result);
     }
 
 }

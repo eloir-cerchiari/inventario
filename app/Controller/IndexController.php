@@ -19,12 +19,16 @@ class IndexController extends Controller{
         parent::__construct();
     }
 
-    public function index(){
+    public function indexAction(){
         return $this->renderHtml('ocorrencias.php');
     }
     
-    public function cadastros(){
-        return $this->renderHtml('cadastros.php');
+    public function cadastroAreaAction(){
+        return $this->renderHtml('cadastroarea.php');
+    }
+    
+    public function cadastroEquipamentoAction(){
+        return $this->renderHtml('cadastroequipamento.php');
     }
     
 }

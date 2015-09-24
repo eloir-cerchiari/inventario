@@ -25,7 +25,28 @@ class AreaController extends \Controller\Controller {
             $areaRep = new \Repository\AreaRepository();
             $areas = $areaRep->listAreas();
             if (is_null($areas) || count($areas) < 1) {
-                throw new Exception('No Areas');
+                throw new \Exception('No Areas');
+            }
+            $resource = new \League\Fractal\Resource\Collection($areas, new \Transformer\AreaTransformer());
+            $this->writeJson($resource);
+        } catch (\Exception $err) {
+            $this->error($err->getMessage());
+        }
+    }
+
+    public function filterAreasAction() {
+
+        try {
+            $app = \Slim\Slim::getInstance();
+            $data = $app->request->getBody();
+
+            $areaPost = json_decode($data);
+            
+            $areaRep = new \Repository\AreaRepository();
+            $areas = $areaRep->findByPattern($areaPost->name);
+            
+            if (is_null($areas) || count($areas) < 1) {
+                throw new \Exception('No Areas');
             }
             $resource = new \League\Fractal\Resource\Collection($areas, new \Transformer\AreaTransformer());
             $this->writeJson($resource);
@@ -124,6 +145,32 @@ class AreaController extends \Controller\Controller {
             }
 
             $areaRep->update($area);
+
+            $resource = new \League\Fractal\Resource\Item($area, new \Transformer\AreaTransformer());
+
+            return $this->writeJson($resource, 200);
+            
+        } catch (\Exception $exc) {
+
+            return $this->error($exc->getMessage());
+        }
+    }
+
+    public function deleteAreaAction($id) {
+
+        try {
+
+            $app = \Slim\Slim::getInstance();
+            $app->add(new \Slim\Middleware\ContentTypes());
+            $data = $app->request()->getBody();
+
+            $areaPut = json_decode($data);
+
+            $areaRep = new \Repository\AreaRepository();
+            $area = $areaRep->getArea($id);
+
+            
+            $areaRep->delete($area);
 
             $resource = new \League\Fractal\Resource\Item($area, new \Transformer\AreaTransformer());
 

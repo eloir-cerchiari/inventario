@@ -8,13 +8,27 @@ $app = new \Slim\Slim(
             'templates.path' => '../app/view'
         )
 );
+
+$app->view()->appendData(array('baseUrl' => '/~clientelp/'));
+    
+    
 $app->get('/hello/:name', 'Controller\Foo:bar');
 $app->get('/', 'Controller\IndexController:index');
-$app->get('/cadastro', 'Controller\IndexController:cadastros');
+$app->get('/cadastroareas', 'Controller\IndexController:cadastroAreaAction');
+$app->get('/cadastroequipamentos', 'Controller\IndexController:cadastroEquipamentoAction');
 $app->get('/api/v1/areas', 'Controller\AreaController:listAreasAction');
+$app->get('/api/v1/areas/filter', 'Controller\AreaController:filterAreasAction');
 $app->get('/api/v1/areas/:id', 'Controller\AreaController:getAreaAction')->name('area_by_id');
+
 $app->post('/api/v1/areas', 'Controller\AreaController:postAreaAction')->name('post_area');
 $app->put('/api/v1/areas/:id', 'Controller\AreaController:putAreaAction')->name('put_area');
+$app->delete('/api/v1/areas/:id', 'Controller\AreaController:deleteAreaAction')->name('delete_area');
+
+
+$app->get('/api/v1/equipments', 'Controller\EquipmentController:listEquipmentsAction');
+$app->get('/api/v1/equipments/area/:id', 'Controller\EquipmentController:listEquipmentsByAreaIdAction')->name('equipments_by_area_id');
+$app->get('/api/v1/equipments/:id', 'Controller\EquipmentController:getEquipment')->name('equipment_by_id');
+
 
 /* $app->get('/api/v1/brands', 'Controller\BrandController:listBrandsAction');
  * $app->get('/api/v1/brands/:id', 'Controller\BrandController:getBrandAction')->name('brand_by_id');

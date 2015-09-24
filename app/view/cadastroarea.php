@@ -7,8 +7,8 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Inventário de Ocorrências</title>
 
-        <script src="js/angular-1.4.4/angular.js"></script>
-        <script src="js/angular-1.4.4/angular-messages.js"></script>
+        <script src="<?php echo $baseUrl; ?>js/angular-1.4.4/angular.js"></script>
+        <script src="<?php echo $baseUrl; ?>js/angular-1.4.4/angular-messages.js"></script>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -17,7 +17,6 @@
         <![endif]-->
     </head>
     <body>
-
         <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
@@ -56,7 +55,7 @@
 
 
                     <!-- panel de listagem de áreas -->
-                    <div class="col-sm-5 col-md-5" ng-hide="formEditArea.editando || formAddArea.selected">
+                    <div class="col-sm-5 col-md-5" ng-hide="formEditArea.selected || formAddArea.selected || formDelArea.selected">
                         <div class="panel panel-default panel-info">
 
 
@@ -83,7 +82,7 @@
                                             <a href="#" 
                                                class="list-group-item" 
                                                ng-repeat="area in areas" 
-                                               ng-class="{active: area == selectedArea}" 
+                                               ng-class="{active: area == selectedArea.area}" 
                                                ng-click="setSelected(area)">
 
                                                 {{area.name}}
@@ -94,23 +93,25 @@
 
                                         <div class="form-group">
 
-                                            <input type="button" 
-                                                   class="btn btn-info btn-group" 
-                                                   value="Alterar" 
-                                                   ng-click="editButtonClick()" 
-                                                   ng-disabled="formEditArea.editando" />
-
+                                            
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
                                                    value="Adicionar" 
                                                    ng-click="addAreaButtonClick()" 
-                                                   ng-disabled="formAddArea.selected" />
+                                                   />
                                             
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
+                                                   value="Alterar" 
+                                                   ng-click="editButtonClick()" 
+                                                   ng-disabled="selectedArea.selected == false" />
+
+
+                                            <input type="button" 
+                                                   class="btn btn-info btn-group btn-danger" 
                                                    value="Remover" 
                                                    ng-click="delAreaButtonClick()" 
-                                                   ng-disabled="delArea.selected" />
+                                                   ng-disabled="selectedArea.selected == false" />
                                         </div>
 
                                     </div>
@@ -124,7 +125,7 @@
                     <!-- fim do panel de listagem de áreas -->
 
                     <!-- edição de área -->
-                    <div class="col-sm-5 col-md-5 " ng-show="formEditArea.editando">
+                    <div class="col-sm-5 col-md-5 " ng-show="formEditArea.selected">
                         <div class="panel panel-default panel-warning" >
                             <div class="panel-heading">
                                 <h3 class="panel-title">Alterando Área </h3>
@@ -140,14 +141,23 @@
                                            class="btn btn-danger " 
                                            value="Cancelar" 
                                            ng-click="editCancelButtonClick()" 
+                                           ng-hide="formEditArea.sucess"
                                            />
 
                                     <input type="button" 
                                            class="btn btn-default" 
                                            value="Salvar"
                                            ng-click="editSaveButtonClick()" 
+                                           ng-hide="formEditArea.sucess"
                                            />
                                 </div>
+
+                                <input type="button" 
+                                       class="btn btn-default" 
+                                       value="Fechar"
+                                       ng-click="editCancelButtonClick()" 
+                                       ng-show="formEditArea.sucess"
+                                       />
                             </div>
                             <div class="panel-footer">
 
@@ -179,14 +189,23 @@
                                            class="btn btn-danger " 
                                            value="Cancelar" 
                                            ng-click="addAreaCancelButtonClick()" 
+                                           ng-hide="formAddArea.sucess"
                                            />
 
                                     <input type="button" 
                                            class="btn btn-default" 
                                            value="Salvar"
                                            ng-click="addAreaSaveButtonClick()" 
+                                           ng-hide="formAddArea.sucess"
                                            />
                                 </div>
+
+                                <input type="button" 
+                                       class="btn btn-default" 
+                                       value="Fechar"
+                                       ng-click="addAreaCancelButtonClick()" 
+                                       ng-show="formAddArea.sucess"
+                                       />
                             </div>
                             <div class="panel-footer">
 
@@ -199,6 +218,58 @@
                             </div>
                         </div>
                     </div>
+                    <!-- fim do forumlario de cadastro de área -->
+
+                    <!-- Removendo área -->
+                    <div class="col-sm-5 col-md-5 " ng-show="formDelArea.selected">
+                        <div class="panel panel-default panel-warning" >
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Removendo área</h3>
+                            </div>
+
+                            <div class="alert alert-warning" >
+                                Deseja realmente remover a área abaixo?
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="form-group" >
+                                    <label for="area">Área: {{formDelArea.area.name}}</label>
+                                </div>
+                                <div class="btn-group">
+                                    <input type="button" 
+                                           class="btn btn-danger " 
+                                           value="Cancelar" 
+                                           ng-click="delAreaCancelButtonClick()" 
+                                           ng-hide="formDelArea.sucess"
+                                           />
+
+                                    <input type="button" 
+                                           class="btn btn-default" 
+                                           value="Remover"
+                                           ng-click="delAreaYesButtonClick()" 
+                                           ng-hide="formDelArea.sucess"
+                                           />
+                                </div>
+                                                                <input type="button" 
+                                       class="btn btn-default" 
+                                       value="Fechar"
+                                       ng-click="delAreaCancelButtonClick()" 
+                                       ng-show="formDelArea.sucess"
+                                       />
+
+                            </div>
+                            <div class="panel-footer">
+
+                                <div class="alert alert-success" ng-show="formDelArea.sucess">
+                                    {{formDelArea.message}}
+                                </div>
+                                <div class="alert alert-warning" ng-show="formDelArea.fail">
+                                    {{formDelArea.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- fim do forumlario de cadastro de área -->
                 </div>
             </div>
 
@@ -221,16 +292,16 @@
         -->
 
         <!-- Custom styles for this template -->
-        <link href="css/default.css" rel="stylesheet">
+        <link href="<?php echo $baseUrl; ?>css/default.css" rel="stylesheet">
 
         <!-- jscript -->
-        <script src="js/inventariong.js"></script>
+        <script src="<?php echo $baseUrl; ?>js/inventariong.js"></script>
 
         <!-- Latest compiled and minified JavaScript -->
         <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-        <script src="js/ie10-viewport-bug-workaround.js"></script>
+        <script src="<?php echo $baseUrl; ?>js/ie10-viewport-bug-workaround.js"></script>
 
     </body>
 </html>
