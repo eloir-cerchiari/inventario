@@ -150,7 +150,7 @@
                                                    class="btn btn-info btn-group" 
                                                    value="Adicionar" 
                                                    ng-click="formEquipment.addEquipmentButtonClick()"
-                                                   ng-disabled="formEquipment.formEditEquipment.active() == true || selectedArea.selected == false "
+                                                   ng-disabled="formEquipment.formEditEquipment.active() == true || selectedArea.selected == false"
                                                    ng-hide="formEquipment.formEditEquipment.active()"
                                                    />
 
@@ -160,7 +160,7 @@
                                                    ng-click="formEquipment.editEquipmentButtonClick()"
                                                    ng-disabled="formEquipment.selectedEquipment.selected == false"
                                                    ng-hide="formEquipment.formEditEquipment.active()"
-                                                   
+
                                                    />
 
 
@@ -170,7 +170,7 @@
                                                    ng-click="formEquipment.delEquipmentButtonClick()" 
                                                    ng-disabled="formEquipment.selectedEquipment.selected == false"
                                                    ng-hide="formEquipment.formEditEquipment.active()"
-                                                   
+
                                                    />
                                         </div>
 
@@ -191,7 +191,7 @@
 
 
 
-                    <!-- edição de área -->
+                    <!-- edição de equipamento -->
                     <div class="col-sm-5 col-md-5 " ng-show="formEquipment.formEditEquipment.active()">
                         <div class="panel panel-default panel-warning" >
                             <div class="panel-heading">
@@ -200,16 +200,16 @@
                                 <h3 class="panel-title" ng-show="formEquipment.formEditEquipment.delEquipment">Removendo Equipamento</h3>
                             </div>
                             <div class="panel-body">
-                                
+
                                 <h4 ng-show="formEquipment.formEditEquipment.editEquipment">Equipamento a ser Alterado: {{formEquipment.selectedEquipment.equipment.name}}</h4>
                                 <h4 ng-show="formEquipment.formEditEquipment.delEquipment">Equipamento a ser Removido: {{formEquipment.formEditEquipment.equipment.name}}</h4>
-                                
-                                
+
+
                                 <div class="form-group" ng-hide="formEquipment.formEditEquipment.delEquipment">
                                     <label for="area">Equipamento</label>
-                                    <input alt="Área" placeholder="Área" ng-model="formEquipment.formEditEquipment.equipment.name" class="form-control" id="equipment"  />
+                                    <input alt="Equipamento" placeholder="Equipamento" ng-model="formEquipment.formEditEquipment.equipment.name" class="form-control" id="equipment"  />
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <input type="button" 
                                            class="btn btn-danger " 
@@ -225,24 +225,23 @@
 
                                            ng-show="formEquipment.formEditEquipment.editEquipment"
                                            />
-                                    
+
                                     <input type="button" 
                                            class="btn btn-default" 
                                            value="Adicionar"
                                            ng-click="formEquipment.formEditEquipment.addEquipmentSaveButtonClick()"
-                                           
+
                                            ng-show="formEquipment.formEditEquipment.newEquipment"
                                            />
-                                    
+
                                     <input type="button" 
                                            class="btn btn-warning" 
                                            value="Remover"
                                            ng-click="formEquipment.formEditEquipment.delEquipmentSaveButtonClick()"
-                                           
+
                                            ng-show="formEquipment.formEditEquipment.delEquipment"
                                            />
-                                    {{formEquipment.formEditEquipment.message}}
-                                    
+
                                 </div>
 
                                 <input type="button" 
@@ -254,11 +253,11 @@
                             </div>
                             <div class="panel-footer">
 
-                                <div class="alert alert-success" ng-show="formEditArea.sucess">
-                                    {{formEditArea.message}}
+                                <div class="alert alert-success" ng-show="formEquipment.formEditEquipment.sucess">
+                                    {{formEquipment.formEditEquipment.message}}
                                 </div>
-                                <div class="alert alert-warning" ng-show="formEditArea.fail">
-                                    {{formEditArea.message}}
+                                <div class="alert alert-warning" ng-show="formEquipment.formEditEquipment.fail">
+                                    {{formEquipment.formEditEquipment.message}}
                                 </div>
                             </div>
                         </div>

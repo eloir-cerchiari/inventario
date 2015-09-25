@@ -101,7 +101,7 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
                     $scope.formEditArea.message = 'Área alterada com Sucesso!';
                     $scope.loadAreas();
                 }, function (response) {
-                    $scope.formEditArea.message = response.data.error.message;
+                    $scope.formEditArea.message = 'Erro: '+response.data.error.message;
                     $scope.formEditArea.fail = true;
                     $scope.loadAreas();
                 });
@@ -130,7 +130,7 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
             $scope.formAddArea.message = 'Nova área adicionada com Sucesso!';
             $scope.loadAreas();
         }, function (response) {
-            $scope.formAddArea.message = response.data.error.message;
+            $scope.formAddArea.message = 'Erro: '+response.data.error.message;
             $scope.formAddArea.fail = true;
             $scope.loadAreas();
         });
@@ -164,7 +164,7 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
             $scope.formDelArea.message = 'Área removida!';
             $scope.loadAreas();
         }, function (response) {
-            $scope.formDelArea.message = response.data.error.message;
+            $scope.formDelArea.message = 'Erro: '+response.data.error.message;
             $scope.formDelArea.fail = true;
             $scope.loadAreas();
         });
@@ -222,38 +222,71 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
 
     $scope.formEquipment = {
         equipments: [],
-        
         formEditEquipment: {
             newEquipment: false,
             editEquipment: false,
             delEquipment: false,
             message: '',
-            active: function(){
-              if(this.newEquipment || this.editEquipment || this.delEquipment){
-                  return true;
-              }  
-              return false;
-            },
+            sucess: false,
+            fail: false,
             equipment: {},
-            cancelButtonClick: function(){
+            active: function () {
+                if (this.newEquipment || this.editEquipment || this.delEquipment) {
+                    return true;
+                }
+                return false;
+            },
+            reset:function(){
                 this.newEquipment = false;
                 this.editEquipment = false;
                 this.delEquipment = false;
                 this.equipment = {};
             },
-            addEquipmentSaveButtonClick : function(){
-              this.message = 'vai adicionar';
-              
+            cancelButtonClick: function () {
+                this.reset();
             },
-            editEquipmentSaveButtonClick:function(){
-              this.message = 'vai alterar';  
+            addEquipmentSaveButtonClick: function () {
+                this.fail = false;
+                this.sucess = false;
+                this.equipment.area_id = $scope.selectedArea.area.id;
+
+                $http.post('api/v1/equipments', $scope.formEquipment.formEditEquipment.equipment).then(function (response) {
+                    $scope.formEquipment.formEditEquipment.message = response.status;
+
+                    $scope.formEquipment.formEditEquipment.sucess = true;
+                    $scope.formEquipment.formEditEquipment.message = 'Novo equipamento adicionado com Sucesso!';
+                    $scope.formEquipment.loadEquipments();
+                }, function (response) {
+                    $scope.formEquipment.formEditEquipment.message = 'Erro: '+response.data.error.message;
+                    $scope.formEquipment.formEditEquipment.fail = true;
+                    $scope.formEquipment.loadEquipments();
+                });
+
             },
-            delEquipmentSaveButtonClick : function(){
+            editEquipmentSaveButtonClick: function () {
+                this.message = $scope.formEquipment.selectedEquipment.equipment;
+                
+                
+                this.fail = false;
+                this.sucess = false;
+
+                $http.put('api/v1/equipments', $scope.formEquipment.formEditEquipment.equipment).then(function (response) {
+                    $scope.formEquipment.formEditEquipment.message = response.status;
+
+                    $scope.formEquipment.formEditEquipment.sucess = true;
+                    $scope.formEquipment.formEditEquipment.message = 'Equipamento alterado com Sucesso!';
+                    $scope.formEquipment.loadEquipments();
+                }, function (response) {
+                    $scope.formEquipment.formEditEquipment.message = 'Erro: '+esponse.data.error.message;
+                    $scope.formEquipment.formEditEquipment.fail = true;
+                    $scope.formEquipment.loadEquipments();
+                });
+
+            },
+            delEquipmentSaveButtonClick: function () {
                 this.message = 'vai remover';
             }
         },
-        
-        
         setEquipments: function (data) {
             this.equipments = data;
         },
@@ -273,7 +306,6 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
                 this.selected = false;
             }
         },
-        
         loadEquipments: function () {
 
             this.resetEquipments();
@@ -288,16 +320,14 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
             });
 
         },
-        
-        addEquipmentButtonClick: function(){
+        addEquipmentButtonClick: function () {
             this.formEditEquipment.newEquipment = true;
         },
-        
-        editEquipmentButtonClick: function(){
+        editEquipmentButtonClick: function () {
             this.formEditEquipment.editEquipment = true;
+            angular.copy(this.selectedEquipment.equipment, this.formEditEquipment.equipment);
         },
-        
-        delEquipmentButtonClick: function(){
+        delEquipmentButtonClick: function () {
             this.formEditEquipment.delEquipment = true;
             angular.copy(this.selectedEquipment.equipment, this.formEditEquipment.equipment);
         }

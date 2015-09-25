@@ -45,7 +45,7 @@ class EquipmentController extends \Controller\Controller {
         }
     }
     
-    public function getEquipment($equipmentId){
+    public function getEquipmentAction($equipmentId){
         
         try {
             $equipmentRep = new \Repository\EquipmentRepository();
@@ -133,7 +133,7 @@ class EquipmentController extends \Controller\Controller {
     
     
     
-    public function putEquipmentAction($id) {
+    public function putEquipmentAction() {
 
         try {
 
@@ -145,10 +145,10 @@ class EquipmentController extends \Controller\Controller {
 
             $equipmentRep = new \Repository\EquipmentRepository();
             
-            $equipment = $equipmentRep->getEquipment($id);
+            $equipment = $equipmentRep->getEquipment($equipmentPut->equipment_id);
 
             $equipment->setName($equipmentPut->name);
-            $equipment->setAreaId($equipmentPut->area_id);
+//            $equipment->setAreaId($equipmentPut->area_id);
 
             $this->validateEquipment($equipment);
             if($equipmentRep->existsOther($equipment)){

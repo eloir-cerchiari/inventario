@@ -111,7 +111,7 @@ class EquipmentRepository extends Repository {
         $stmt = $this->db->getConnection()->prepare($sql);
 
         $stmt->bindParam('name', $equipment->getName());
-        $stmt->bindParam('area_id', $equipment->getAreaId());
+        $stmt->bindParam('area_id', $equipment->getEquipmentId());
 
 
         return $stmt->execute();
@@ -132,7 +132,7 @@ class EquipmentRepository extends Repository {
 
         $stmt->bindParam('name', $equipment->getName());
         $stmt->bindParam('area_id', $equipment->getAreaId());
-        $stmt->bindParam('equipment_id', $equipment->getAreaId());
+        $stmt->bindParam('equipment_id', $equipment->getEquipmentId());
         $stmt->execute();
 
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -159,11 +159,11 @@ class EquipmentRepository extends Repository {
             return false;
         }
         
-        $sql = 'UPDATE equipment SET name=:name WHERE area_id=:area_id and equipment_id = :equipment_id';
+        $sql = 'UPDATE equipment SET name=:name WHERE equipment_id = :equipment_id';
         $stmt = $this->db->getConnection()->prepare($sql);
 
         $stmt->bindParam('name', $equipment->getName());
-        $stmt->bindParam('id', $equipment->getAreaId());
+        $stmt->bindParam('equipment_id', $equipment->getEquipmentId());
 
         return $stmt->execute();
 
