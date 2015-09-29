@@ -123,6 +123,7 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
     $scope.addAreaSaveButtonClick = function () {
         $scope.formAddArea.fail = false;
         $scope.formAddArea.sucess = false;
+        
         $http.post('api/v1/areas', $scope.formAddArea.area).then(function (response) {
             $scope.message = response.status;
 
@@ -240,6 +241,9 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
                 this.newEquipment = false;
                 this.editEquipment = false;
                 this.delEquipment = false;
+                this.sucess = false;
+                this.fail = false;
+                this.message = '';
                 this.equipment = {};
             },
             cancelButtonClick: function () {
@@ -264,7 +268,6 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
 
             },
             editEquipmentSaveButtonClick: function () {
-                this.message = $scope.formEquipment.selectedEquipment.equipment;
                 
                 
                 this.fail = false;
@@ -284,7 +287,22 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
 
             },
             delEquipmentSaveButtonClick: function () {
-                this.message = 'vai remover';
+                
+                
+                this.fail = false;
+                this.sucess = false;
+
+                $http.delete('api/v1/equipments/'+this.equipment.equipment_id, $scope.formEquipment.formEditEquipment.equipment).then(function (response) {
+                    $scope.formEquipment.formEditEquipment.message = response.status;
+
+                    $scope.formEquipment.formEditEquipment.sucess = true;
+                    $scope.formEquipment.formEditEquipment.message = 'Equipamento alterado com Sucesso!';
+                    $scope.formEquipment.loadEquipments();
+                }, function (response) {
+                    $scope.formEquipment.formEditEquipment.message = 'Erro: '+esponse.data.error.message;
+                    $scope.formEquipment.formEditEquipment.fail = true;
+                    $scope.formEquipment.loadEquipments();
+                });
             }
         },
         setEquipments: function (data) {

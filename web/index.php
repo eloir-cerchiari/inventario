@@ -30,6 +30,7 @@ $app->get('/api/v1/equipments/area/:id', 'Controller\EquipmentController:listEqu
 $app->get('/api/v1/equipments/:id', 'Controller\EquipmentController:getEquipmentAction')->name('equipment_by_id');
 $app->post('/api/v1/equipments','Controller\EquipmentController:postEquipmentAction')->name('post_equipment');
 $app->put('/api/v1/equipments','Controller\EquipmentController:putEquipmentAction')->name('put_equipment');
+$app->delete('/api/v1/equipments/:id','Controller\EquipmentController:deleteEquipmentAction')->name('delete_equipment');
 
 
 /* $app->get('/api/v1/brands', 'Controller\BrandController:listBrandsAction');

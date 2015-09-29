@@ -215,7 +215,8 @@
                                            class="btn btn-danger " 
                                            value="Cancelar" 
                                            ng-click="formEquipment.formEditEquipment.cancelButtonClick()" 
-                                           ng-hide="formEditArea.sucess"
+                                           ng-hide="formEquipment.formEditEquipment.sucess"
+
                                            />
 
                                     <input type="button" 
@@ -223,33 +224,34 @@
                                            value="Salvar"
                                            ng-click="formEquipment.formEditEquipment.editEquipmentSaveButtonClick()" 
 
-                                           ng-show="formEquipment.formEditEquipment.editEquipment"
+                                           ng-show="formEquipment.formEditEquipment.editEquipment && formEquipment.formEditEquipment.sucess == false"
                                            />
 
                                     <input type="button" 
                                            class="btn btn-default" 
                                            value="Adicionar"
                                            ng-click="formEquipment.formEditEquipment.addEquipmentSaveButtonClick()"
-
-                                           ng-show="formEquipment.formEditEquipment.newEquipment"
+                                           
+                                           ng-show="formEquipment.formEditEquipment.newEquipment && formEquipment.formEditEquipment.sucess == false"
                                            />
 
                                     <input type="button" 
                                            class="btn btn-warning" 
                                            value="Remover"
                                            ng-click="formEquipment.formEditEquipment.delEquipmentSaveButtonClick()"
-
-                                           ng-show="formEquipment.formEditEquipment.delEquipment"
+                                           
+                                           ng-show="formEquipment.formEditEquipment.delEquipment && formEquipment.formEditEquipment.sucess == false"
                                            />
-
+                                    
+                                    <input type="button" 
+                                           class="btn btn-default" 
+                                           value="Fechar"
+                                           ng-click="formEquipment.formEditEquipment.cancelButtonClick()" 
+                                           ng-show="formEquipment.formEditEquipment.sucess"
+                                           />
                                 </div>
 
-                                <input type="button" 
-                                       class="btn btn-default" 
-                                       value="Fechar"
-                                       ng-click="editCancelButtonClick()" 
-                                       ng-show="formEditArea.sucess"
-                                       />
+
                             </div>
                             <div class="panel-footer">
 
@@ -264,104 +266,6 @@
                     </div>
 
                     <!-- fim da edição de áreas -->
-
-                    <!-- cadastrando área -->
-                    <div class="col-sm-5 col-md-5 " ng-show="formAddArea.selected">
-                        <div class="panel panel-default panel-warning" >
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Nova Área </h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="form-group" >
-                                    <label for="area">Área</label>
-                                    <input alt="Área" placeholder="Área" ng-model="formAddArea.area.name" class="form-control" id="area"  />
-                                </div>
-                                <div class="btn-group">
-                                    <input type="button" 
-                                           class="btn btn-danger " 
-                                           value="Cancelar" 
-                                           ng-click="addAreaCancelButtonClick()" 
-                                           ng-hide="formAddArea.sucess"
-                                           />
-
-                                    <input type="button" 
-                                           class="btn btn-default" 
-                                           value="Salvar"
-                                           ng-click="addAreaSaveButtonClick()" 
-                                           ng-hide="formAddArea.sucess"
-                                           />
-                                </div>
-
-                                <input type="button" 
-                                       class="btn btn-default" 
-                                       value="Fechar"
-                                       ng-click="addAreaCancelButtonClick()" 
-                                       ng-show="formAddArea.sucess"
-                                       />
-                            </div>
-                            <div class="panel-footer">
-
-                                <div class="alert alert-success" ng-show="formAddArea.sucess">
-                                    {{formAddArea.message}}
-                                </div>
-                                <div class="alert alert-warning" ng-show="formAddArea.fail">
-                                    {{formAddArea.message}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- fim do forumlario de cadastro de área -->
-
-                    <!-- Removendo área -->
-                    <div class="col-sm-5 col-md-5 " ng-show="formDelArea.selected">
-                        <div class="panel panel-default panel-warning" >
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Removendo área</h3>
-                            </div>
-
-                            <div class="alert alert-warning" >
-                                Deseja realmente remover a área abaixo?
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="form-group" >
-                                    <label for="area">Área: {{formDelArea.area.name}}</label>
-                                </div>
-                                <div class="btn-group">
-                                    <input type="button" 
-                                           class="btn btn-danger " 
-                                           value="Cancelar" 
-                                           ng-click="delAreaCancelButtonClick()" 
-                                           ng-hide="formDelArea.sucess"
-                                           />
-
-                                    <input type="button" 
-                                           class="btn btn-default" 
-                                           value="Remover"
-                                           ng-click="delAreaYesButtonClick()" 
-                                           ng-hide="formDelArea.sucess"
-                                           />
-                                </div>
-                                <input type="button" 
-                                       class="btn btn-default" 
-                                       value="Fechar"
-                                       ng-click="delAreaCancelButtonClick()" 
-                                       ng-show="formDelArea.sucess"
-                                       />
-
-                            </div>
-                            <div class="panel-footer">
-
-                                <div class="alert alert-success" ng-show="formDelArea.sucess">
-                                    {{formDelArea.message}}
-                                </div>
-                                <div class="alert alert-warning" ng-show="formDelArea.fail">
-                                    {{formDelArea.message}}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- fim do forumlario de cadastro de área -->
                 </div>
             </div>
 

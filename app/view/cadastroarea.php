@@ -93,13 +93,13 @@
 
                                         <div class="form-group">
 
-                                            
+
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
                                                    value="Adicionar" 
                                                    ng-click="addAreaButtonClick()" 
                                                    />
-                                            
+
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
                                                    value="Alterar" 
@@ -250,7 +250,7 @@
                                            ng-hide="formDelArea.sucess"
                                            />
                                 </div>
-                                                                <input type="button" 
+                                <input type="button" 
                                        class="btn btn-default" 
                                        value="Fechar"
                                        ng-click="delAreaCancelButtonClick()" 

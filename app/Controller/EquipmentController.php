@@ -169,7 +169,7 @@ class EquipmentController extends \Controller\Controller {
 
     
     
-    public function deleteAreaAction($id) {
+    public function deleteEquipmentAction($id) {
 
         try {
 

@@ -111,7 +111,7 @@ class EquipmentRepository extends Repository {
         $stmt = $this->db->getConnection()->prepare($sql);
 
         $stmt->bindParam('name', $equipment->getName());
-        $stmt->bindParam('area_id', $equipment->getEquipmentId());
+        $stmt->bindParam('area_id', $equipment->getAreaId());
 
 
         return $stmt->execute();
