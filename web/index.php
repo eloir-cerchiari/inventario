@@ -24,6 +24,11 @@ $app->post('/api/v1/areas', 'Controller\AreaController:postAreaAction')->name('p
 $app->put('/api/v1/areas/:id', 'Controller\AreaController:putAreaAction')->name('put_area');
 $app->delete('/api/v1/areas/:id', 'Controller\AreaController:deleteAreaAction')->name('delete_area');
 
+$app->get('/api/v1/users', 'Controller\UserController:listAction');
+$app->get('/api/v1/users/:id', 'Controller\UserController:getAction')->name('user_by_id');
+$app->post('/api/v1/users', 'Controller\UserController:postAction')->name('post_user');
+$app->put('/api/v1/users', 'Controller\UserController:putAction')->name('put_user');
+$app->delete('/api/v1/users/:id', 'Controller\UserController:deleteAction')->name('delete_user');
 
 $app->get('/api/v1/equipments', 'Controller\EquipmentController:listEquipmentsAction');
 $app->get('/api/v1/equipments/area/:id', 'Controller\EquipmentController:listEquipmentsByAreaIdAction')->name('equipments_by_area_id');
