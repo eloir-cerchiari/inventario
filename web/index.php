@@ -16,6 +16,10 @@ $app->get('/hello/:name', 'Controller\Foo:bar');
 $app->get('/', 'Controller\IndexController:index');
 $app->get('/cadastroareas', 'Controller\IndexController:cadastroAreaAction');
 $app->get('/cadastroequipamentos', 'Controller\IndexController:cadastroEquipamentoAction');
+$app->get('/cadastrousuarios', 'Controller\IndexController:cadastroUsuarioAction');
+
+
+
 $app->get('/api/v1/areas', 'Controller\AreaController:listAreasAction');
 $app->get('/api/v1/areas/filter', 'Controller\AreaController:filterAreasAction');
 $app->get('/api/v1/areas/:id', 'Controller\AreaController:getAreaAction')->name('area_by_id');

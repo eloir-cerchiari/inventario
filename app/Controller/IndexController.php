@@ -31,4 +31,8 @@ class IndexController extends Controller{
         return $this->renderHtml('cadastroequipamento.php');
     }
     
+    public function cadastroUsuarioAction(){
+        return $this->renderHtml('cadastrousuario.php');
+    }
+    
 }

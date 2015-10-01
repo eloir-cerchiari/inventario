@@ -7,7 +7,7 @@ namespace Controller;
  *
  * @author eloir
  */
-class UserController {
+class UserController extends Controller{
 
     public function getAction($id){
         try {
@@ -31,7 +31,7 @@ class UserController {
             if (is_null($users) || count($users) < 1) {
                 throw new \Exception('No Users');
             }
-            $resource = new \League\Fractal\Resource\Collection(users, new \Transformer\UserTransformer());
+            $resource = new \League\Fractal\Resource\Collection($users, new \Transformer\UserTransformer());
             $this->writeJson($resource);
         } catch (\Exception $err) {
             $this->error($err->getMessage());

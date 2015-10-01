@@ -1,5 +1,4 @@
 angular.module("areaRegister", []);
-
 angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, $http) {
     $scope.app = "Area Register";
     $scope.selectedArea = {area: {}, selected: false};
@@ -35,7 +34,6 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
             this.waiting = false;
         }
     };
-
     $scope.formDelArea = {
         selected: false,
         area: {},
@@ -52,21 +50,15 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
             this.waiting = false;
         }
     };
-
-
     $scope.loadAreas = function () {
         $http.get('api/v1/areas').then(function (response) {
             $scope.areas = response.data.data;
-
         }, function (data) {
             $scope.message = "Erro ao buscar dados: " + data;
         });
-
     }
 
     $scope.loadAreas();
-
-
     $scope.setSelected = function (area) {
         if ($scope.formEditArea.selected == false && $scope.formAddArea.selected == false) {
             $scope.selectedArea.area = area;
@@ -96,12 +88,11 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
                 )
                 .then(function (response) {
                     $scope.message = response.status;
-
                     $scope.formEditArea.sucess = true;
                     $scope.formEditArea.message = 'Área alterada com Sucesso!';
                     $scope.loadAreas();
                 }, function (response) {
-                    $scope.formEditArea.message = 'Erro: '+response.data.error.message;
+                    $scope.formEditArea.message = 'Erro: ' + response.data.error.message;
                     $scope.formEditArea.fail = true;
                     $scope.loadAreas();
                 });
@@ -123,15 +114,13 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
     $scope.addAreaSaveButtonClick = function () {
         $scope.formAddArea.fail = false;
         $scope.formAddArea.sucess = false;
-        
         $http.post('api/v1/areas', $scope.formAddArea.area).then(function (response) {
             $scope.message = response.status;
-
             $scope.formAddArea.sucess = true;
             $scope.formAddArea.message = 'Nova área adicionada com Sucesso!';
             $scope.loadAreas();
         }, function (response) {
-            $scope.formAddArea.message = 'Erro: '+response.data.error.message;
+            $scope.formAddArea.message = 'Erro: ' + response.data.error.message;
             $scope.formAddArea.fail = true;
             $scope.loadAreas();
         });
@@ -165,7 +154,7 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
             $scope.formDelArea.message = 'Área removida!';
             $scope.loadAreas();
         }, function (response) {
-            $scope.formDelArea.message = 'Erro: '+response.data.error.message;
+            $scope.formDelArea.message = 'Erro: ' + response.data.error.message;
             $scope.formDelArea.fail = true;
             $scope.loadAreas();
         });
@@ -186,21 +175,14 @@ angular.module("areaRegister").controller("areaRegisterCtrl", function ($scope, 
      });
      */
 });
-
-
-
 angular.module("equipmentRegister", []);
-
 angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function ($scope, $http) {
 
     $scope.app = "Equipment Register";
-
-
     $scope.loadAreas = function () {
 
         $http.get('api/v1/areas').then(function (response) {
             $scope.areas = response.data.data;
-
         }, function (data) {
             $scope.message = "Erro ao buscar dados: " + data;
         });
@@ -214,13 +196,11 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
 
             if (area == this.area)
                 return;
-
             this.area = area;
             this.selected = true;
             $scope.formEquipment.loadEquipments();
         }
     };
-
     $scope.formEquipment = {
         equipments: [],
         formEditEquipment: {
@@ -237,7 +217,7 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
                 }
                 return false;
             },
-            reset:function(){
+            reset: function () {
                 this.newEquipment = false;
                 this.editEquipment = false;
                 this.delEquipment = false;
@@ -253,53 +233,45 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
                 this.fail = false;
                 this.sucess = false;
                 this.equipment.area_id = $scope.selectedArea.area.id;
-
                 $http.post('api/v1/equipments', $scope.formEquipment.formEditEquipment.equipment).then(function (response) {
                     $scope.formEquipment.formEditEquipment.message = response.status;
-
                     $scope.formEquipment.formEditEquipment.sucess = true;
                     $scope.formEquipment.formEditEquipment.message = 'Novo equipamento adicionado com Sucesso!';
                     $scope.formEquipment.loadEquipments();
                 }, function (response) {
-                    $scope.formEquipment.formEditEquipment.message = 'Erro: '+response.data.error.message;
+                    $scope.formEquipment.formEditEquipment.message = 'Erro: ' + response.data.error.message;
                     $scope.formEquipment.formEditEquipment.fail = true;
                     $scope.formEquipment.loadEquipments();
                 });
-
             },
             editEquipmentSaveButtonClick: function () {
-                
-                
+
+
                 this.fail = false;
                 this.sucess = false;
-
                 $http.put('api/v1/equipments', $scope.formEquipment.formEditEquipment.equipment).then(function (response) {
                     $scope.formEquipment.formEditEquipment.message = response.status;
-
                     $scope.formEquipment.formEditEquipment.sucess = true;
                     $scope.formEquipment.formEditEquipment.message = 'Equipamento alterado com Sucesso!';
                     $scope.formEquipment.loadEquipments();
                 }, function (response) {
-                    $scope.formEquipment.formEditEquipment.message = 'Erro: '+esponse.data.error.message;
+                    $scope.formEquipment.formEditEquipment.message = 'Erro: ' + esponse.data.error.message;
                     $scope.formEquipment.formEditEquipment.fail = true;
                     $scope.formEquipment.loadEquipments();
                 });
-
             },
             delEquipmentSaveButtonClick: function () {
-                
-                
+
+
                 this.fail = false;
                 this.sucess = false;
-
-                $http.delete('api/v1/equipments/'+this.equipment.equipment_id, $scope.formEquipment.formEditEquipment.equipment).then(function (response) {
+                $http.delete('api/v1/equipments/' + this.equipment.equipment_id, $scope.formEquipment.formEditEquipment.equipment).then(function (response) {
                     $scope.formEquipment.formEditEquipment.message = response.status;
-
                     $scope.formEquipment.formEditEquipment.sucess = true;
                     $scope.formEquipment.formEditEquipment.message = 'Equipamento alterado com Sucesso!';
                     $scope.formEquipment.loadEquipments();
                 }, function (response) {
-                    $scope.formEquipment.formEditEquipment.message = 'Erro: '+esponse.data.error.message;
+                    $scope.formEquipment.formEditEquipment.message = 'Erro: ' + esponse.data.error.message;
                     $scope.formEquipment.formEditEquipment.fail = true;
                     $scope.formEquipment.loadEquipments();
                 });
@@ -327,16 +299,12 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
         loadEquipments: function () {
 
             this.resetEquipments();
-
             $http.get('api/v1/equipments/area/' + $scope.selectedArea.area.id).then(function (response) {
                 $scope.formEquipment.setEquipments(response.data.data);
-
             }, function (data) {
 
                 $scope.message = "Erro ao buscar dados: " + data;
-
             });
-
         },
         addEquipmentButtonClick: function () {
             this.formEditEquipment.newEquipment = true;
@@ -354,7 +322,78 @@ angular.module("equipmentRegister").controller("equipmentRegisterCtrl", function
 
 
     $scope.loadAreas();
-
-
 });
 
+
+
+angular.module("userRegister", []);
+angular.module("userRegister").controller('userRegisterCtrl', function ($scope, $http) {
+    $scope.app = "User Register";
+
+
+    $scope.listUsers = {
+        users: {},
+        userSelected: {},
+        isUserSelected: false,
+        active: true,
+        select: function (user) {
+
+            if (this.userSelected == user) {
+                this.userSelected = {};
+                this.isUserSelected = false;
+            } else {
+                this.userSelected = user;
+                this.isUserSelected = true;
+            }
+        },
+        loadUsers: function () {
+
+            $http.get('api/v1/users').then(function (response) {
+                $scope.listUsers.users = response.data.data;
+            }, function (data) {
+                $scope.message = "Erro ao buscar dados: " + data;
+            });
+        },
+        addButtonClick: function () {
+            $scope.formUsers.create = true;
+            $scope.formUsers.setUser();
+            
+        },
+        editButtonClick: function () {
+
+            $scope.formUsers.edit = true;
+            $scope.formUsers.setUser();
+        },
+        delButtonClick: function () {
+
+            $scope.formUsers.del = true;
+            $scope.formUsers.setUser();
+        },
+    };
+
+    $scope.formUsers = {
+        del: false,
+        edit: false,
+        create: false,
+        user: {},
+        message: '',
+        sucess: false,
+        fail: false,
+        reset: function () {
+            this.del = false;
+            this.edit = false;
+            this.create = false;
+            this.sucess = false;
+            this.fail = false;
+            this.user = {};
+            this.message = '';
+        },
+        setUser: function () {
+            angular.copy($scope.listUsers.userSelected, this.user);
+        }
+
+    }
+
+    //run load userrs;
+    $scope.listUsers.loadUsers();
+});
