@@ -96,7 +96,7 @@
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
                                                    value="Adicionar" 
-                                                   ng-click="formEquipment.addEquipmentButtonClick()"
+                                                   ng-click="listUsers.addButtonClick()"
                                                    ng-disabled="formEquipment.formEditEquipment.active() == true || selectedArea.selected == false"
                                                    ng-hide="formEquipment.formEditEquipment.active()"
                                                    />
@@ -104,8 +104,8 @@
                                             <input type="button" 
                                                    class="btn btn-info btn-group" 
                                                    value="Alterar"
-                                                   ng-click="formEquipment.editEquipmentButtonClick()"
-                                                   ng-disabled="listUsers.isUserSelected ==false"
+                                                   ng-click="listUsers.editButtonClick()"
+                                                   ng-disabled="listUsers.isUserSelected == false"
                                                    ng-hide="formEquipment.formEditEquipment.active()"
 
                                                    />
@@ -114,8 +114,8 @@
                                             <input type="button" 
                                                    class="btn btn-info btn-group btn-danger" 
                                                    value="Remover" 
-                                                   ng-click="formEquipment.delEquipmentButtonClick()" 
-                                                   ng-disabled="listUsers.isUserSelected ==false"
+                                                   ng-click="listUsers.delButtonClick()"
+                                                   ng-disabled="listUsers.isUserSelected == false"
                                                    ng-hide="formEquipment.formEditEquipment.active()"
 
                                                    />
@@ -131,70 +131,81 @@
 
                     <!-- fim do panel de listagem de equipamentos -->
 
-
-
-
-
-
-
-
-                    <!-- edição de equipamento -->
-                    <div class="col-sm-5 col-md-5 " ng-show="formEquipment.formEditEquipment.active()">
+                    <!-- edição de usuarios -->
+                    <div class="col-sm-5 col-md-5 " ng-show="formUsers.isOpen">
                         <div class="panel panel-default panel-warning" >
                             <div class="panel-heading">
-                                <h3 class="panel-title" ng-show="formEquipment.formEditEquipment.newEquipment" >Novo Equipamento</h3>
-                                <h3 class="panel-title" ng-show="formEquipment.formEditEquipment.editEquipment">Alterando Equipamento</h3>
-                                <h3 class="panel-title" ng-show="formEquipment.formEditEquipment.delEquipment">Removendo Equipamento</h3>
+                                <h3 class="panel-title" ng-show="formUsers.create" >Novo Usuário</h3>
+                                <h3 class="panel-title" ng-show="formUsers.edit">Alterando Usuário</h3>
+                                <h3 class="panel-title" ng-show="formUsers.del">Removendo Usuário</h3>
                             </div>
                             <div class="panel-body">
 
-                                <h4 ng-show="formEquipment.formEditEquipment.editEquipment">Equipamento a ser Alterado: {{formEquipment.selectedEquipment.equipment.name}}</h4>
-                                <h4 ng-show="formEquipment.formEditEquipment.delEquipment">Equipamento a ser Removido: {{formEquipment.formEditEquipment.equipment.name}}</h4>
+                                <h4 ng-show="formUsers.edit">Usuário a ser Alterado: {{listUsers.userSelected.name}}</h4>
+                                <h4 ng-show="formUsers.del">Usuário a ser Removido: {{listUsers.userSelected.name}}</h4>
 
 
-                                <div class="form-group" ng-hide="formEquipment.formEditEquipment.delEquipment">
-                                    <label for="area">Equipamento</label>
-                                    <input alt="Equipamento" placeholder="Equipamento" ng-model="formEquipment.formEditEquipment.equipment.name" class="form-control" id="equipment"  />
-                                </div>
+                                <form role="form" ng-hide="formUsers.del">
+                                    <div class="form-group" >
+                                        <label for="name">Nome do Usuário</label>
+                                        <input alt="Nome do Usuário" placeholder="Nome do Usuário" ng-model="formUsers.user.name" class="form-control" id="name"  />
+                                    </div>
+                                    <div class="form-group" >
+                                        <label for="email">Email do Usuário</label>
+                                        <input alt="Email do Usuário" placeholder="Email do Usuário" ng-model="formUsers.user.email" class="form-control" id="email"  />
+                                    </div>
+                                    <div class="form-group" >
+                                        <label for="grupo">Grupo do Usuário</label>
+
+                                        <select class="form-control" name="group" id="group" ng-model="formUsers.user.group">
+                                            <option ng-repeat="group in formUsers.groups" value="{{group.id}}">{{group.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" >
+                                        <label for="senha">Senha do Usuário</label>
+                                        <input type="password" alt="Senha do Usuário" placeholder="Senha do Usuário" ng-model="formUsers.user.password" class="form-control" id="senha"  />
+                                    </div>
+                                </form>
 
                                 <div class="form-group">
                                     <input type="button" 
                                            class="btn btn-danger " 
                                            value="Cancelar" 
-                                           ng-click="formEquipment.formEditEquipment.cancelButtonClick()" 
-                                           ng-hide="formEquipment.formEditEquipment.sucess"
+                                           ng-click="formUsers.CancellButtonClick()" 
+                                           ng-hide="formUsers.sucess"
 
                                            />
 
                                     <input type="button" 
                                            class="btn btn-default" 
                                            value="Salvar"
-                                           ng-click="formEquipment.formEditEquipment.editEquipmentSaveButtonClick()" 
+                                           ng-click="formUsers.editSaveButtonClick()" 
 
-                                           ng-show="formEquipment.formEditEquipment.editEquipment && formEquipment.formEditEquipment.sucess == false"
+                                           ng-show="formUsers.edit && formUsers.sucess == false"
                                            />
+                                    
 
                                     <input type="button" 
                                            class="btn btn-default" 
                                            value="Adicionar"
-                                           ng-click="formEquipment.formEditEquipment.addEquipmentSaveButtonClick()"
-                                           
-                                           ng-show="formEquipment.formEditEquipment.newEquipment && formEquipment.formEditEquipment.sucess == false"
+                                           ng-click="formUsers.addSaveButtonClick()"
+
+                                           ng-show="formUsers.create && formUsers.sucess == false"
                                            />
 
                                     <input type="button" 
                                            class="btn btn-warning" 
                                            value="Remover"
-                                           ng-click="formEquipment.formEditEquipment.delEquipmentSaveButtonClick()"
-                                           
-                                           ng-show="formEquipment.formEditEquipment.delEquipment && formEquipment.formEditEquipment.sucess == false"
+                                           ng-click="formUsers.delButtonClick()"
+
+                                           ng-show="formUsers.del && formUsers.sucess == false"
                                            />
-                                    
+
                                     <input type="button" 
                                            class="btn btn-default" 
                                            value="Fechar"
-                                           ng-click="formEquipment.formEditEquipment.cancelButtonClick()" 
-                                           ng-show="formEquipment.formEditEquipment.sucess"
+                                           ng-click="formUsers.CancellButtonClick()" 
+                                           ng-show="formUsers.sucess"
                                            />
                                 </div>
 
@@ -202,11 +213,11 @@
                             </div>
                             <div class="panel-footer">
 
-                                <div class="alert alert-success" ng-show="formEquipment.formEditEquipment.sucess">
-                                    {{formEquipment.formEditEquipment.message}}
+                                <div class="alert alert-success" ng-show="formUsers.sucess">
+                                    {{formUsers.message}}
                                 </div>
-                                <div class="alert alert-warning" ng-show="formEquipment.formEditEquipment.fail">
-                                    {{formEquipment.formEditEquipment.message}}
+                                <div class="alert alert-warning" ng-show="formUsers.fail">
+                                    {{formUsers.message}}
                                 </div>
                             </div>
                         </div>

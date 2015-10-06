@@ -51,8 +51,7 @@ class UserRepository extends Repository {
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $this->userFactory($result);
     }
-    
-    
+
     /**
      * 
      * @param int $idUser
@@ -78,7 +77,7 @@ class UserRepository extends Repository {
 
     public function finByName($name) {
 
-        $sql = 'SELECT * FROM userWHERE name = :name';
+        $sql = 'SELECT * FROM user WHERE name = :name';
 
         $stmt = $this->db->getConnection()->prepare($sql);
 
@@ -127,20 +126,19 @@ class UserRepository extends Repository {
 
         return false;
     }
-    
-    
-      /**
+
+    /**
      * 
      * @param \Entity\User $user
      * @return boolean
      */
     public function insert($user) {
         if ($this->exists($user)) {
-           
+
             throw new \Exception('Usuário já existe.');
         }
 
-        $sql = 'INSERT INTO user (name, password, email, active, group) values (:name,:password,:email,:active,:group); ';
+        $sql = 'INSERT INTO user (name, password, email, active, `group`) values (:name, :password, :email, :active, :group); ';
 
         $stmt = $this->db->getConnection()->prepare($sql);
 
@@ -153,27 +151,37 @@ class UserRepository extends Repository {
 
         return $stmt->execute();
     }
-    
-    
+
     /**
      * 
      * @param \Entity\User $user
      */
     public function update($user) {
+        //password
+        if (strlen($user->getPassword()) > 0) {
+            $sql = 'UPDATE user SET name=:name, email=:email, password=:password, active=:active, `group`=:group WHERE user_id=:id';
+        }
+        // no password
 
-        $sql = 'UPDATE user SET name=:name, email=:email, password=:password, active=:active, group=:group WHERE user_id=:id';
+        if (strlen($user->getPassword()) < 1) {
+            $sql = 'UPDATE user SET name=:name, email=:email, active=:active, `group`=:group WHERE user_id=:id';
+        }
         $stmt = $this->db->getConnection()->prepare($sql);
 
+        // password
+        if (strlen($user->getPassword()) > 0) {
+            $stmt->bindParam('password', $user->getPassword());
+        }
+        
         $stmt->bindParam('name', $user->getName());
-        $stmt->bindParam('password', $user->getPassword());
         $stmt->bindParam('email', $user->getEmail());
         $stmt->bindParam('active', $user->getActive());
         $stmt->bindParam('group', $user->getGroup());
-       $stmt->bindParam('id', $user->getUserId());
+        $stmt->bindParam('id', $user->getUserId());
 
         return $stmt->execute();
     }
-    
+
     /**
      * 
      * @param \Entity\User $user
@@ -187,6 +195,5 @@ class UserRepository extends Repository {
 
         return $stmt->execute();
     }
-
 
 }

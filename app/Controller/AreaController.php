@@ -164,8 +164,7 @@ class AreaController extends \Controller\Controller {
             $app->add(new \Slim\Middleware\ContentTypes());
             $data = $app->request()->getBody();
 
-            $areaPut = json_decode($data);
-
+         
             $areaRep = new \Repository\AreaRepository();
             $area = $areaRep->getArea($id);
 

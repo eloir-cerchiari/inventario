@@ -355,19 +355,27 @@ angular.module("userRegister").controller('userRegisterCtrl', function ($scope, 
             });
         },
         addButtonClick: function () {
+            this.active = false;
             $scope.formUsers.create = true;
-            $scope.formUsers.setUser();
-            
+            $scope.formUsers.resetUser();
+            $scope.formUsers.open();
+            $scope.formUsers.new();
+
+
         },
         editButtonClick: function () {
-
+            this.active = false;
             $scope.formUsers.edit = true;
+            $scope.formUsers.resetUser();
             $scope.formUsers.setUser();
+            $scope.formUsers.open();
         },
         delButtonClick: function () {
-
+            this.active = false;
             $scope.formUsers.del = true;
+            $scope.formUsers.resetUser();
             $scope.formUsers.setUser();
+            $scope.formUsers.open();
         },
     };
 
@@ -376,9 +384,14 @@ angular.module("userRegister").controller('userRegisterCtrl', function ($scope, 
         edit: false,
         create: false,
         user: {},
+        groups: [
+            {id: 'user', name: 'Usuário'},
+            {id: 'admin', name: 'Administrador'}
+        ],
         message: '',
         sucess: false,
         fail: false,
+        isOpen: false,
         reset: function () {
             this.del = false;
             this.edit = false;
@@ -387,11 +400,63 @@ angular.module("userRegister").controller('userRegisterCtrl', function ($scope, 
             this.fail = false;
             this.user = {};
             this.message = '';
+            this.isOpen = false;
+        },
+        new : function () {
+            this.user.group = this.groups[0].id;
         },
         setUser: function () {
             angular.copy($scope.listUsers.userSelected, this.user);
+        },
+        resetUser: function () {
+            this.user = {};
+        },
+        open: function () {
+            this.isOpen = true;
+        },
+        CancellButtonClick: function () {
+            this.reset();
+            $scope.listUsers.active = true;
+        },
+        addSaveButtonClick: function () {
+            this.fail = false;
+            this.sucess = false;
+            $http.post('api/v1/users', $scope.formUsers.user).then(function (response) {
+                $scope.formUsers.sucess = true;
+                $scope.formUsers.message = 'Novo usuário adicionado com Sucesso!';
+                $scope.listUsers.loadUsers();
+            }, function (response) {
+                $scope.formUsers.message = 'Erro: ' + response.data.error.message;
+                $scope.formUsers.fail = true;
+                $scope.listUsers.loadUsers();
+            });
+        },
+        editSaveButtonClick: function () {
+            this.fail = false;
+            this.sucess = false;
+            $http.put('api/v1/users', $scope.formUsers.user).then(function (response) {
+                $scope.formUsers.sucess = true;
+                $scope.formUsers.message = 'Usuário alterado com Sucesso!';
+                $scope.listUsers.loadUsers();
+            }, function (response) {
+                $scope.formUsers.message = 'Erro: ' + response.data.error.message;
+                $scope.formUsers.fail = true;
+                $scope.listUsers.loadUsers();
+            });
+        },
+        delButtonClick: function () {
+            this.fail = false;
+            this.sucess = false;
+            $http.delete('api/v1/users/' + $scope.formUsers.user.id, $scope.formUsers.user).then(function (response) {
+                $scope.formUsers.sucess = true;
+                $scope.formUsers.message = 'Usuário removido com Sucesso!';
+                $scope.listUsers.loadUsers();
+            }, function (response) {
+                $scope.formUsers.message = 'Erro: ' + response.data.error.message;
+                $scope.formUsers.fail = true;
+                $scope.listUsers.loadUsers();
+            });
         }
-
     }
 
     //run load userrs;
