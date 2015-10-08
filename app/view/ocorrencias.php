@@ -7,6 +7,8 @@
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Inventário de Ocorrências</title>
 
+        <script src="<?php echo $baseUrl; ?>js/angular-1.4.4/angular.js"></script>
+        <script src="<?php echo $baseUrl; ?>js/angular-1.4.4/angular-messages.js"></script>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -38,7 +40,7 @@
             </div>
         </nav>
 
-        <div class="container">
+        <div class="container" ng-app="ocorrenciasApp" ng-controller="ocorrenciasCtrl">
 
 
             <!-- Área de seleção de Áreas -->
@@ -50,34 +52,24 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-12">
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default active btn-block">A</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">B</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">C</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">D</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">E</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">F</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">G</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">H</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">I</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">J</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">K</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">L</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">M</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">N</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">O</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">P</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">Q</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">R</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">S</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">T</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">U</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">V</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">W</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">X</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">Y</button></div>
-                                <div class="col-sm-4 col-md-4 margin-bottom-15"> <button type="button" class="btn btn-default btn-block">Z</button></div>
+                                <div 
+                                    class="col-sm-4 col-md-4 margin-bottom-15"
+                                    ng-repeat="area in listAreas.areas" > 
+
+
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-default btn-block"
+                                        ng-class="{active: area == listAreas.selectedArea}"
+                                        ng-bind="area.name"
+                                        ng-click="listAreas.onSelectArea(area)"
+                                        >
+
+                                    </button>
+                                </div>
+
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -96,20 +88,19 @@
 
                         <div class="row margin-bottom-15">
                             <div class="col-sm-12 col-md-12">
-                                <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-equipamentos"  />
+                                <input alt="Filtro" placeholder="Filtro" class="form-control" id="filtro-equipamentos" ng-model="equipmentsFilter"  />
                             </div>
                         </div>
 
 
                         <div class="row">
-
                             <div class="col-sm-12 col-md-12 ">
                                 <div class="list-group">
-                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
-                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
-                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
-                                    <a href="#" class="list-group-item">A-JCH-M2345c</a>
-                                    <a href="#" class="list-group-item">A-JCH-M2345</a>
+                                    <a href="#" class="list-group-item"
+                                       ng-class="{active: equipment == listEquipments.selectedEquipment}"
+                                       ng-repeat="equipment in listEquipments.equipments | filter: {name:equipmentsFilter}"
+                                       ng-click="listEquipments.onSelectedEquipment(equipment)"
+                                       >{{equipment.name}}</a >
                                 </div>
                             </div>
                         </div>
@@ -209,8 +200,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         -->
 
-
-
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -222,10 +211,16 @@
         -->
 
         <!-- Custom styles for this template -->
-        <link href="css/default.css" rel="stylesheet">
+        <link href="<?php echo $baseUrl; ?>css/default.css" rel="stylesheet">
 
+        <!-- jscript -->
+        <script src="<?php echo $baseUrl; ?>js/inventariong.js"></script>
+
+        <!-- Custom styles for this template 
+        <link href="css/default.css" rel="stylesheet">
+        -->
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!--        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
 
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="js/ie10-viewport-bug-workaround.js"></script>

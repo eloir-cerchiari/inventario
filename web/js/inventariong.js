@@ -462,3 +462,57 @@ angular.module("userRegister").controller('userRegisterCtrl', function ($scope, 
     //run load userrs;
     $scope.listUsers.loadUsers();
 });
+
+
+angular.module("ocorrenciasApp", []);
+angular.module("ocorrenciasApp").controller('ocorrenciasCtrl', function ($scope, $http) {
+    $scope.app = 'Listagem de Ocorrências';
+    
+    $scope.listAreas = {
+        areas: {},
+        selectedArea: {},
+        loadAreas: function () {
+
+            $http.get('api/v1/areas').then(function (response) {
+                $scope.listAreas.areas = response.data.data;
+            }, function (data) {
+                $scope.message = "Erro ao buscar dados: " + data;
+            });
+        },
+        onSelectArea: function (area) {
+            this.selectedArea = area;
+            $scope.listEquipments.loadEquipments(this.selectedArea);
+        }
+
+    }
+
+    $scope.listEquipments = {
+        equipments: null,
+        selectedEquipment: {},
+        reset: function () {
+            this.equipments = [{}];
+            this.selectedEquipment = {};
+        },
+        loadEquipments: function (area) {
+            this.reset();
+            $http.get('api/v1/equipments/area/' + area.id).then(function (response) {
+                $scope.listEquipments.equipments = response.data.data;
+            }, function (data) {
+                $scope.message = "Erro ao buscar dados: " + data;
+            });
+        },
+        onSelectedEquipment: function (equipment) {
+            if (this.selectedEquipment === equipment) {
+                this.selectedEquipment = {};
+            } else {
+                this.selectedEquipment = equipment;
+            }
+        },
+        onFilter:function(){
+            
+        }
+    }
+
+
+    $scope.listAreas.loadAreas();
+});

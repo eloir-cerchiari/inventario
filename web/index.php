@@ -13,7 +13,7 @@ $app->view()->appendData(array('baseUrl' => '/~clientelp/'));
     
     
 $app->get('/hello/:name', 'Controller\Foo:bar');
-$app->get('/', 'Controller\IndexController:index');
+$app->get('/', 'Controller\IndexController:indexAction');
 $app->get('/cadastroareas', 'Controller\IndexController:cadastroAreaAction');
 $app->get('/cadastroequipamentos', 'Controller\IndexController:cadastroEquipamentoAction');
 $app->get('/cadastrousuarios', 'Controller\IndexController:cadastroUsuarioAction');
