@@ -172,7 +172,7 @@ class UserRepository extends Repository {
         if (strlen($user->getPassword()) > 0) {
             $stmt->bindParam('password', $user->getPassword());
         }
-        
+
         $stmt->bindParam('name', $user->getName());
         $stmt->bindParam('email', $user->getEmail());
         $stmt->bindParam('active', $user->getActive());
@@ -194,6 +194,27 @@ class UserRepository extends Repository {
         $stmt->bindParam('id', $user->getUserId());
 
         return $stmt->execute();
+    }
+
+    /**
+     * 
+     * @param array $listId
+     */
+    public function listUsersBylistId($listId) {
+        /* Create a string for the parameter placeholders filled to the number of params */
+        $place_holders = implode(',', array_fill(0, count($listId), '?'));
+
+
+        $sql = 'select * from user where user_id in (' . $place_holders . ')';
+
+        $stmt = $this->db->getConnection()->prepare($sql);
+
+        //$stmt->bindParam('userIds', $listId);
+        $stmt->execute($listId);
+
+        $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        return $this->userFactory($result);
     }
 
 }

@@ -163,12 +163,15 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                        <tr
+                                             ng-repeat="event in listEvents.events "
+                                            >
+                                            <td>{{event.create_timestamp | date:'dd/MM/yy HH:mm'}}</td>
+                                            <td>{{event.user.data.name}}</td>
+                                            <td>{{event.description}}</td>
+                                            <td>{{event.type}}</td>
+                                            <td>{{event.time}}</td>
+                                            
                                         </tr>
                                     </tbody>
                                 </table>

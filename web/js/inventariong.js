@@ -506,10 +506,28 @@ angular.module("ocorrenciasApp").controller('ocorrenciasCtrl', function ($scope,
                 this.selectedEquipment = {};
             } else {
                 this.selectedEquipment = equipment;
+                $scope.listEvents.loadEvents(equipment);
             }
         },
         onFilter:function(){
             
+        }
+    }
+    
+    $scope.listEvents = {
+        events: null,
+        selectedEvent: {},
+        reset:function(){
+            this.events = null;
+            this.selectedEvent = {};
+        },
+        loadEvents: function(equipment){
+            this.reset();
+            $http.get('api/v1/equipments/'+equipment.equipment_id+'/events').then(function (response) {
+                $scope.listEvents.events= response.data.data;
+            }, function (data) {
+                $scope.message = "Erro ao buscar dados: " + data;
+            });
         }
     }
 

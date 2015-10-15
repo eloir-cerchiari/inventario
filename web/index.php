@@ -41,6 +41,8 @@ $app->post('/api/v1/equipments','Controller\EquipmentController:postEquipmentAct
 $app->put('/api/v1/equipments','Controller\EquipmentController:putEquipmentAction')->name('put_equipment');
 $app->delete('/api/v1/equipments/:id','Controller\EquipmentController:deleteEquipmentAction')->name('delete_equipment');
 
+$app->get('/api/v1/equipments/:equipmentId/events', 'Controller\EventController:listEventByEquipmentIdAction')->name('list_events_by_equipment_id');
+$app->get('/api/v1/events/:id', 'Controller\EventController:getEventAction')->name('list_events_by_id');
 
 /* $app->get('/api/v1/brands', 'Controller\BrandController:listBrandsAction');
  * $app->get('/api/v1/brands/:id', 'Controller\BrandController:getBrandAction')->name('brand_by_id');
